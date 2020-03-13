@@ -2,7 +2,7 @@ defmodule BellWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", BellWeb.RoomChannel
+  channel "ring:*", BellWeb.RingChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
