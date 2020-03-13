@@ -6,7 +6,20 @@ defmodule BellWeb.RingChannel do
   end
 
   def handle_in("increment_ring", _message, socket) do
-    broadcast!(socket, "incremented_ring", %{body: "Something"})
+    increment_bell()
+
+    broadcast!(socket, "incremented_ring", %{
+      body: "#{bell_count()} people are ringing the bell now"
+    })
+
     {:noreply, socket}
+  end
+
+  defp bell_count do
+    Bell.Repo.aggregate(Bell.Ring, :count)
+  end
+
+  defp increment_bell() do
+    Bell.Repo.insert(%Bell.Ring{})
   end
 end
