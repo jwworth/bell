@@ -5,8 +5,8 @@ defmodule BellWeb.RingChannel do
     {:ok, socket}
   end
 
-  def handle_in("new_msg", %{"body" => body}, socket) do
-    broadcast!(socket, "new_msg", %{body: body})
+  def handle_in("increment_ring", _message, socket) do
+    broadcast!(socket, "incremented_ring", %{body: "Something"})
     {:noreply, socket}
   end
 end

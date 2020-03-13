@@ -56,20 +56,15 @@ socket.connect();
 
 // Now that you are connected, you can join channels with a topic:
 let channel = socket.channel('ring:lobby', {});
-let chatInput = document.querySelector('#chat-input');
+let bellButton = document.querySelector('#bell-button');
 let messagesContainer = document.querySelector('#messages');
 
-chatInput.addEventListener('keypress', event => {
-  if (event.keyCode === 13) {
-    channel.push('new_msg', { body: chatInput.value });
-    chatInput.value = '';
-  }
+bellButton.addEventListener('click', event => {
+  channel.push('increment_ring');
 });
 
-channel.on('new_msg', payload => {
-  let messageItem = document.createElement('li');
-  messageItem.innerText = `[${Date()}] ${payload.body}`;
-  messagesContainer.appendChild(messageItem);
+channel.on('incremented_ring', payload => {
+  messagesContainer.innerText = `${payload.body}`;
 });
 
 channel
