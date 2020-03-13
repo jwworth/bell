@@ -1,0 +1,16 @@
+<h1>The Bell</h1>
+<button id="bell-button">
+  <img id="bell" src="<%= Routes.static_path(@conn, "/images/bell.png") %>" alt="The Bell"/>
+</button>
+<div class="progress-wrapper">
+  <div class="progress">
+    <div id="progress-value"></div>
+  </div>
+</div>
+<h3 id="messages">Nobody is ringing the bell.</h3>
+<p class="quote"><em>"Listen, listen. This wonderful sound brings me back to my true self." &mdash;Thích Nhất Hạnh</em></p>
+<p id="total-ring-count">The bell has been rung <%= @total_ring_count %> times.</p>
+<div class="footer">
+  <div>Donate to <a href="https://donate.doctorswithoutborders.org/" target="_blank" rel="noopener noreferrer">Doctors Without Borders</a>.</div>
+  <div>Built by <a href="https://twitter.com/jwworth" target="_blank" rel="noopener noreferrer">@jwworth</a>.</div>
+</div>
