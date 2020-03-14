@@ -1,5 +1,3 @@
-require Ecto.Query
-
 defmodule BellWeb.RingChannel do
   use Phoenix.Channel
   require Logger
@@ -12,21 +10,10 @@ defmodule BellWeb.RingChannel do
     increment_bell()
 
     broadcast!(socket, "active_ring_count", %{
-      body: active_ring_count()
+      body: BellWeb.RingHelpers.active_ring_count()
     })
 
     {:noreply, socket}
-  end
-
-  defp active_ring_count do
-    rings =
-      Bell.Repo.all(
-        Ecto.Query.from(r in Bell.Ring,
-          where: r.inserted_at > datetime_add(^NaiveDateTime.utc_now(), -1, "minute")
-        )
-      )
-
-    length(rings)
   end
 
   defp increment_bell() do
