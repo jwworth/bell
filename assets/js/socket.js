@@ -63,6 +63,13 @@ bellButton.addEventListener('click', event => {
   channel.push('increment_ring');
 });
 
+bellButton.addEventListener('click', event => {
+  bellButton.disabled = true;
+  setTimeout(function() {
+    bellButton.disabled = false;
+  }, 30000);
+});
+
 channel.on('active_ring_count', payload => {
   messagesContainer.innerText = `${payload.body} people are ringing the bell.`;
 });
