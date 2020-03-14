@@ -6,12 +6,15 @@ defmodule Bell.Application do
   use Application
 
   def start(_type, _args) do
+    import Supervisor.Spec
+
     # List all child processes to be supervised
     children = [
       # Start the Ecto repository
       Bell.Repo,
       # Start the endpoint when the application starts
-      BellWeb.Endpoint
+      BellWeb.Endpoint,
+      worker(Bell.Timer, [])
       # Starts a worker by calling: Bell.Worker.start_link(arg)
       # {Bell.Worker, arg},
     ]

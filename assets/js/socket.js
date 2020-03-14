@@ -63,8 +63,8 @@ bellButton.addEventListener('click', event => {
   channel.push('increment_ring');
 });
 
-channel.on('incremented_ring', payload => {
-  messagesContainer.innerText = `${payload.body}`;
+channel.on('latest_ring_count', payload => {
+  messagesContainer.innerText = `${payload.body} people are ringing the bell.`;
 });
 
 channel

@@ -2,6 +2,7 @@ require Ecto.Query
 
 defmodule BellWeb.RingChannel do
   use Phoenix.Channel
+  require Logger
 
   def join("ring:lobby", _message, socket) do
     {:ok, socket}
@@ -10,8 +11,8 @@ defmodule BellWeb.RingChannel do
   def handle_in("increment_ring", _message, socket) do
     increment_bell()
 
-    broadcast!(socket, "incremented_ring", %{
-      body: "#{ring_count()} people are ringing the bell now"
+    broadcast!(socket, "latest_ring_count", %{
+      body: ring_count()
     })
 
     {:noreply, socket}
