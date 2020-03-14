@@ -14,11 +14,9 @@ defmodule Bell.Timer do
   end
 
   def handle_info(:work, _state) do
-    BellWeb.Endpoint.broadcast("ring:lobby", "latest_ring_count", %{
-      body: ring_count()
+    BellWeb.Endpoint.broadcast("ring:lobby", "active_ring_count", %{
+      body: active_ring_count()
     })
-
-    Logger.info("...done")
 
     timer = Process.send_after(self(), :work, 3000)
 
@@ -26,11 +24,10 @@ defmodule Bell.Timer do
   end
 
   def handle_info(_, state) do
-    Logger.warn("Something's not right")
     {:ok, state}
   end
 
-  defp ring_count do
+  defp active_ring_count do
     rings =
       Bell.Repo.all(
         Ecto.Query.from(r in Bell.Ring,

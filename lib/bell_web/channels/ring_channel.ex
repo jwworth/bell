@@ -11,14 +11,14 @@ defmodule BellWeb.RingChannel do
   def handle_in("increment_ring", _message, socket) do
     increment_bell()
 
-    broadcast!(socket, "latest_ring_count", %{
-      body: ring_count()
+    broadcast!(socket, "active_ring_count", %{
+      body: active_ring_count()
     })
 
     {:noreply, socket}
   end
 
-  defp ring_count do
+  defp active_ring_count do
     rings =
       Bell.Repo.all(
         Ecto.Query.from(r in Bell.Ring,
